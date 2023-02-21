@@ -24,7 +24,7 @@ namespace WpfLabWork
         public MainWindow()
         {
             InitializeComponent();
-            imgPath = Environment.CurrentDirectory.Substring(0, Environment.CurrentDirectory.Length - 24).ToString();
+            // после загрузки формы привязываем загрузку элементов листбокса
             Loaded += MainWindow_Loaded;
         }
 
@@ -34,23 +34,32 @@ namespace WpfLabWork
             phoneListBox.ItemsSource = new[] {
                 new Contact()
                 {
-                    ImagePath = imgPath + "\\Images\\kittens3.jpg",
-                    Name = "kittens4",
+                    ImagePath = "images/kittens3.jpg",
+                    Name = "kittens3",
                     Phone = 79090095563
                 },
                 new Contact()
                 {
-                    ImagePath = imgPath + "\\Images\\kittens2.jpg",
-                    Name = "kittens5",
+                    ImagePath = "images/kittens2.jpg",
+                    Name = "kittens2",
                     Phone = 79092195563
                 }
             };
+        }
+        private void CommandBinding_Executed(object sender, ExecutedRoutedEventArgs args)
+        {
+            MessageBox.Show("Клик! Команда сработала.", "Результат");
         }
 
         private void ShowContact(object sender, SelectionChangedEventArgs args)
         {
             Contact contact = ((sender as ListBox).SelectedItem as Contact);
-            contactBottom.Text = "Выбран контакт: " + contact.Name;
+            contactInfoBottom.Text = "Информация";
+            contactNameBottom.Text = "Имя контакта: " + contact.Name;
+            contactPhoneBottom.Text = "Номер телефона: " + contact.Phone;
+            infoBottom.Text = contact.Name;
+
+            imageBottom.Source = new BitmapImage(new Uri(contact.ImagePath, UriKind.Relative));
         }
     }
 }

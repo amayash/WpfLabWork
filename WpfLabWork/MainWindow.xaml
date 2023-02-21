@@ -6,38 +6,75 @@
         xmlns:local="clr-namespace:WpfLabWork"
         mc:Ignorable="d"
         Title="Контакты" MinHeight="450" MinWidth="750" Height="450" Width="750" WindowStyle="ThreeDBorderWindow">
+
+    <Window.CommandBindings>
+        <CommandBinding Command="New"
+                        Executed="CommandBinding_Executed"></CommandBinding>
+    </Window.CommandBindings>
+
+    <Window.Resources>
+        <ImageBrush x:Key="TileBrush"
+                    ImageSource="Images/wallpaper.jpg"
+                    Opacity="0.3"></ImageBrush>
+        <Style x:Key="Font">
+            <Setter Property="Control.FontFamily" Value="Calibri Light"></Setter>
+            <Setter Property="Control.FontSize" Value="15"></Setter>
+            <Setter Property="Control.Padding" Value="5"></Setter>
+            <Setter Property="Control.Margin" Value="5"></Setter>
+        </Style>
+        
+        <ControlTemplate TargetType="Button" x:Key="Template">
+            <Border CornerRadius="5"
+                    BorderBrush="CadetBlue"
+                    BorderThickness="2" 
+                    Background="{TemplateBinding Background}">
+                <ContentControl HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                Content="{TemplateBinding Content}" 
+                                Style="{TemplateBinding Style}"/>
+            </Border>
+            
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Foreground" Value="Red" />
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+    </Window.Resources>
+
     <DockPanel Background="AliceBlue">
-        <Grid Background="LightBlue" DockPanel.Dock="Top">
+
+        <Grid Background="LightBlue" DockPanel.Dock="Top" >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition Width="5*"></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Button Background="LemonChiffon" Grid.Column="0">Избранные</Button>
-            <Button Background="Lavender" Grid.Column="1">Контакты</Button>
-            <Button Background="LightGreen" Grid.Column="2">Добавить</Button>
-            <Button Background="CadetBlue" Grid.Column="4">Изменить</Button>
-            <Button Background="IndianRed" Grid.Column="5">Удалить</Button>
+            <Button Command="New" Style="{StaticResource Font}" Template="{StaticResource Template}" Background="LemonChiffon" Grid.Column="0">Избранные</Button>
+            <Button Command="New" Style="{StaticResource Font}" Template="{StaticResource Template}" Background="Lavender" Grid.Column="1">Контакты</Button>
+            <Button Command="New" Style="{StaticResource Font}" Template="{StaticResource Template}" Background="LightGreen" Grid.Column="2">Добавить</Button>
+            <Button Command="New" Style="{StaticResource Font}" Template="{StaticResource Template}" Background="CornflowerBlue" Grid.Column="3">Изменить</Button>
+            <Button Command="New" Style="{StaticResource Font}" Template="{StaticResource Template}" Background="IndianRed" Grid.Column="4">Удалить</Button>
         </Grid>
+
         <Grid DockPanel.Dock="Bottom">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="0.5*"></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <ListBox x:Name="phoneListBox" SelectionChanged="ShowContact" Background="AliceBlue" Grid.Column="0">
+            <ListBox x:Name="phoneListBox" Grid.Column="0" SelectionChanged="ShowContact" Background="AliceBlue">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
-                            <Image Source="{Binding ImagePath}" Width="90"/>
-                            <TextBlock Text="{Binding Name}"></TextBlock>
+                            <Image Source="{Binding ImagePath}" MaxWidth="100"/>
+                            <TextBlock Style="{StaticResource Font}" Text="{Binding Name}"></TextBlock>
                         </StackPanel>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
-            <Grid Grid.Column="1">
+            <Grid Grid.Column="1" Background="{StaticResource TileBrush}">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="0.5*"></RowDefinition>
                     <RowDefinition></RowDefinition>
@@ -46,12 +83,12 @@
                     <ColumnDefinition Width="0.5*"></ColumnDefinition>
                     <ColumnDefinition></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <StackPanel x:Name="contactTop" Orientation="Horizontal" Grid.Row="0" Grid.Column="0">
-                    <Image />
-                    <TextBlock Text=""></TextBlock>
-                </StackPanel>
+                <Image x:Name="imageBottom" Grid.Row="0" Grid.Column="0"/>
+                <TextBlock x:Name="infoBottom" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" Style="{StaticResource Font}"></TextBlock>
                 <StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
-                    <TextBlock x:Name="contactBottom"></TextBlock>
+                    <TextBlock x:Name="contactInfoBottom" TextAlignment="Center" Style="{StaticResource Font}" ></TextBlock>
+                    <TextBlock x:Name="contactNameBottom" Style="{StaticResource Font}" ></TextBlock>
+                    <TextBlock x:Name="contactPhoneBottom" Style="{StaticResource Font}" ></TextBlock>
                 </StackPanel>
             </Grid>
         </Grid>
