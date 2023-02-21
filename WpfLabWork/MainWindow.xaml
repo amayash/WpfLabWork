@@ -15,25 +15,35 @@
     <Window.Resources>
         <ImageBrush x:Key="TileBrush"
                     ImageSource="Images/wallpaper.jpg"
-                    Opacity="0.3"></ImageBrush>
-        <Style x:Key="Font">
-            <Setter Property="Control.FontFamily" Value="Calibri Light"></Setter>
-            <Setter Property="Control.FontSize" Value="15"></Setter>
+                    Opacity="0.3">
+        </ImageBrush>
+
+        <Style TargetType="TextBlock">
+            <Setter Property="Control.FontFamily" Value="Times New Roman"></Setter>
+            <Setter Property="Control.FontSize" Value="20"></Setter>
             <Setter Property="Control.Padding" Value="5"></Setter>
             <Setter Property="Control.Margin" Value="5"></Setter>
         </Style>
-        
+
+        <Style TargetType="Button">
+            <Setter Property="Control.FontFamily" Value="Calibri Light"></Setter>
+            <Setter Property="Control.FontSize" Value="15"></Setter>
+            <Setter Property="Control.Padding" Value="10"></Setter>
+            <Setter Property="Control.Margin" Value="5"></Setter>
+        </Style>
+
         <ControlTemplate TargetType="Button" x:Key="Template">
             <Border CornerRadius="5"
                     BorderBrush="CadetBlue"
                     BorderThickness="2" 
                     Background="{TemplateBinding Background}">
                 <ContentControl HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                Margin="{TemplateBinding Margin}"
+                                Padding="{TemplateBinding Padding}"
                                 VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                                Content="{TemplateBinding Content}" 
-                                Style="{TemplateBinding Style}"/>
+                                Content="{TemplateBinding Content}"/>
             </Border>
-            
+
             <ControlTemplate.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
                     <Setter Property="Foreground" Value="Red" />
@@ -43,7 +53,6 @@
     </Window.Resources>
 
     <DockPanel Background="AliceBlue">
-
         <Grid Background="LightBlue" DockPanel.Dock="Top" >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition></ColumnDefinition>
@@ -52,11 +61,11 @@
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Button Command="New" Style="{StaticResource Font}" Template="{StaticResource Template}" Background="LemonChiffon" Grid.Column="0">Избранные</Button>
-            <Button Command="New" Style="{StaticResource Font}" Template="{StaticResource Template}" Background="Lavender" Grid.Column="1">Контакты</Button>
-            <Button Command="New" Style="{StaticResource Font}" Template="{StaticResource Template}" Background="LightGreen" Grid.Column="2">Добавить</Button>
-            <Button Command="New" Style="{StaticResource Font}" Template="{StaticResource Template}" Background="CornflowerBlue" Grid.Column="3">Изменить</Button>
-            <Button Command="New" Style="{StaticResource Font}" Template="{StaticResource Template}" Background="IndianRed" Grid.Column="4">Удалить</Button>
+            <Button Command="New" Template="{StaticResource Template}" Background="LemonChiffon" Grid.Column="0">Избранные</Button>
+            <Button Command="New" Template="{StaticResource Template}" Background="Lavender" Grid.Column="1">Контакты</Button>
+            <Button Command="New" Template="{StaticResource Template}" Background="LightGreen" Grid.Column="2">Добавить</Button>
+            <Button Command="New" Template="{StaticResource Template}" Background="CornflowerBlue" Grid.Column="3">Изменить</Button>
+            <Button Command="New" Template="{StaticResource Template}" Background="IndianRed" Grid.Column="4">Удалить</Button>
         </Grid>
 
         <Grid DockPanel.Dock="Bottom">
@@ -69,7 +78,7 @@
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
                             <Image Source="{Binding ImagePath}" MaxWidth="100"/>
-                            <TextBlock Style="{StaticResource Font}" Text="{Binding Name}"></TextBlock>
+                            <TextBlock Text="{Binding Name}"></TextBlock>
                         </StackPanel>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
@@ -83,13 +92,59 @@
                     <ColumnDefinition Width="0.5*"></ColumnDefinition>
                     <ColumnDefinition></ColumnDefinition>
                 </Grid.ColumnDefinitions>
+
                 <Image x:Name="imageBottom" Grid.Row="0" Grid.Column="0"/>
-                <TextBlock x:Name="infoBottom" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" Style="{StaticResource Font}"></TextBlock>
-                <StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
-                    <TextBlock x:Name="contactInfoBottom" TextAlignment="Center" Style="{StaticResource Font}" ></TextBlock>
-                    <TextBlock x:Name="contactNameBottom" Style="{StaticResource Font}" ></TextBlock>
-                    <TextBlock x:Name="contactPhoneBottom" Style="{StaticResource Font}" ></TextBlock>
-                </StackPanel>
+                <TextBlock x:Name="infoBottom" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center"></TextBlock>
+
+                <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Grid.Row="0">
+                        <TextBlock x:Name="contactInfoBottom" TextAlignment="Center"></TextBlock>
+                        <TextBlock x:Name="contactNameBottom" ></TextBlock>
+                        <TextBlock x:Name="contactPhoneBottom" ></TextBlock>
+                    </StackPanel>
+
+                    <Canvas Grid.Row="1">
+                        <Ellipse Width="20" 
+                                 Height="20" 
+                                 Margin="10"
+                                 Canvas.Left="10"
+                                 Canvas.Top="10">
+                            <Ellipse.Fill>
+                                <LinearGradientBrush>
+                                    <GradientStop Color="Coral" Offset="0"/>
+                                    <GradientStop Color="White" Offset="1" />
+                                </LinearGradientBrush>
+                            </Ellipse.Fill>
+                        </Ellipse>
+                        <Ellipse Width="20" Height="20" 
+                                 Margin="10"
+                                 Canvas.Left="40"
+                                 Canvas.Top="40">
+                            <Ellipse.Fill>
+                                <LinearGradientBrush>
+                                    <GradientStop Color="IndianRed" Offset="1"/>
+                                    <GradientStop Color="White" Offset="0" />
+                                </LinearGradientBrush>
+                            </Ellipse.Fill>
+                        </Ellipse>
+                        <Ellipse Width="20" Height="20" 
+                                 Margin="10"
+                                 Canvas.Top="50">
+                            <Ellipse.Fill>
+                                <LinearGradientBrush>
+                                    <GradientStop Color="LightCoral" Offset="0"/>
+                                    <GradientStop Color="White" Offset="1" />
+                                </LinearGradientBrush>
+                            </Ellipse.Fill>
+                        </Ellipse>
+                    </Canvas>
+                </Grid>
+                
             </Grid>
         </Grid>
     </DockPanel>
