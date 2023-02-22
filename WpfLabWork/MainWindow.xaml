@@ -18,6 +18,11 @@
                     Opacity="0.3">
         </ImageBrush>
 
+        <LinearGradientBrush x:Key="gradientStyle" StartPoint="0.5,1" EndPoint="0.5,0">
+            <GradientStop Color="LemonChiffon" Offset="0" />
+            <GradientStop Color="White" Offset="1" />
+        </LinearGradientBrush>
+
         <Style TargetType="TextBlock">
             <Setter Property="Control.FontFamily" Value="Times New Roman"></Setter>
             <Setter Property="Control.FontSize" Value="20"></Setter>
@@ -53,20 +58,17 @@
     </Window.Resources>
 
     <DockPanel Background="AliceBlue">
-        <Grid Background="LightBlue" DockPanel.Dock="Top" >
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-            </Grid.ColumnDefinitions>
-            <Button Command="New" Template="{StaticResource Template}" Background="LemonChiffon" Grid.Column="0">Избранные</Button>
-            <Button Command="New" Template="{StaticResource Template}" Background="Lavender" Grid.Column="1">Контакты</Button>
-            <Button Command="New" Template="{StaticResource Template}" Background="LightGreen" Grid.Column="2">Добавить</Button>
-            <Button Command="New" Template="{StaticResource Template}" Background="CornflowerBlue" Grid.Column="3">Изменить</Button>
-            <Button Command="New" Template="{StaticResource Template}" Background="IndianRed" Grid.Column="4">Удалить</Button>
-        </Grid>
+        <DockPanel DockPanel.Dock="Top">
+            <StackPanel Orientation="Horizontal" DockPanel.Dock="Left">
+                <Button Command="New" Template="{StaticResource Template}" Background="{StaticResource gradientStyle}">Избранные</Button>
+                <Button Command="New" Template="{StaticResource Template}" Background="Lavender">Контакты</Button>
+                <Button Command="New" Template="{StaticResource Template}" Background="LightGreen">Добавить</Button>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" DockPanel.Dock="Right" HorizontalAlignment="Right" >
+                <Button Command="New" Template="{StaticResource Template}" Background="CornflowerBlue">Изменить</Button>
+                <Button Command="New" Template="{StaticResource Template}" Background="IndianRed">Удалить</Button>
+            </StackPanel>
+        </DockPanel>
 
         <Grid DockPanel.Dock="Bottom">
             <Grid.ColumnDefinitions>
@@ -101,7 +103,7 @@
                     <TextBlock x:Name="contactNameBottom" ></TextBlock>
                     <TextBlock x:Name="contactPhoneBottom" ></TextBlock>
                 </StackPanel>
-                
+
             </Grid>
         </Grid>
     </DockPanel>
