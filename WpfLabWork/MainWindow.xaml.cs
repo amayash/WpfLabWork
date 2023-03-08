@@ -20,7 +20,6 @@ namespace WpfLabWork
     /// </summary>
     public partial class MainWindow : Window
     {
-        string imgPath;
         public MainWindow()
         {
             InitializeComponent();

@@ -59,15 +59,11 @@
 
     <DockPanel Background="AliceBlue">
         <DockPanel DockPanel.Dock="Top">
-            <StackPanel Orientation="Horizontal" DockPanel.Dock="Left">
-                <Button Command="New" Template="{StaticResource Template}" Background="{StaticResource gradientStyle}">Избранные</Button>
-                <Button Command="New" Template="{StaticResource Template}" Background="Lavender">Контакты</Button>
-                <Button Command="New" Template="{StaticResource Template}" Background="LightGreen">Добавить</Button>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal" DockPanel.Dock="Right" HorizontalAlignment="Right" >
-                <Button Command="New" Template="{StaticResource Template}" Background="CornflowerBlue">Изменить</Button>
-                <Button Command="New" Template="{StaticResource Template}" Background="IndianRed">Удалить</Button>
-            </StackPanel>
+            <Button DockPanel.Dock="Left" Command="New" Template="{StaticResource Template}" Background="{StaticResource gradientStyle}">Избранные</Button>
+            <Button DockPanel.Dock="Left" Command="New" Template="{StaticResource Template}" Background="Lavender">Контакты</Button>
+            <Button DockPanel.Dock="Left" Command="New" Template="{StaticResource Template}" Background="LightGreen">Добавить</Button>
+            <Button DockPanel.Dock="Right" Command="New" Template="{StaticResource Template}" Background="IndianRed">Удалить</Button>
+            <Button DockPanel.Dock="Right" HorizontalAlignment="Right" Command="New" Template="{StaticResource Template}" Background="CornflowerBlue">Изменить</Button>
         </DockPanel>
 
         <Grid DockPanel.Dock="Bottom">
