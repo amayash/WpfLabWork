@@ -15,7 +15,7 @@
     <Window.Resources>
         <ImageBrush x:Key="TileBrush"
                     ImageSource="Images/wallpaper.jpg"
-                    Opacity="0.3">
+                    Opacity="0.5">
         </ImageBrush>
 
         <LinearGradientBrush x:Key="gradientStyle" StartPoint="0.5,1" EndPoint="0.5,0">
@@ -35,6 +35,13 @@
             <Setter Property="Control.FontSize" Value="15"></Setter>
             <Setter Property="Control.Padding" Value="10"></Setter>
             <Setter Property="Control.Margin" Value="5"></Setter>
+            <Style.Triggers>
+                <EventTrigger RoutedEvent="Button.Click">
+                    <EventTrigger.Actions>
+                        <SoundPlayerAction Source="Images/buttonSound.wav"></SoundPlayerAction>
+                    </EventTrigger.Actions>
+                </EventTrigger>
+            </Style.Triggers>
         </Style>
 
         <ControlTemplate TargetType="Button" x:Key="Template">
@@ -57,6 +64,19 @@
         </ControlTemplate>
     </Window.Resources>
 
+    <Window.Triggers>
+        <EventTrigger RoutedEvent="Loaded">
+            <EventTrigger.Actions>
+                <BeginStoryboard>
+                    <Storyboard TargetProperty="Opacity" TargetName="grid_bg">
+                        <DoubleAnimation From="0" To="{Binding ElementName=Windows}"
+                                         Duration="0:0:3"/>
+                    </Storyboard>
+                </BeginStoryboard>
+            </EventTrigger.Actions>
+        </EventTrigger>
+    </Window.Triggers>
+
     <DockPanel Background="AliceBlue">
         <DockPanel DockPanel.Dock="Top">
             <Button DockPanel.Dock="Left" Command="New" Template="{StaticResource Template}" Background="{StaticResource gradientStyle}">Избранные</Button>
@@ -66,12 +86,18 @@
             <Button DockPanel.Dock="Right" HorizontalAlignment="Right" Command="New" Template="{StaticResource Template}" Background="CornflowerBlue">Изменить</Button>
         </DockPanel>
 
-        <Grid DockPanel.Dock="Bottom">
+        <Grid x:Name="grid_bg" DockPanel.Dock="Bottom" Background="{StaticResource TileBrush}">
             <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.75*"></ColumnDefinition>
                 <ColumnDefinition Width="0.5*"></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <ListBox x:Name="phoneListBox" Grid.Column="0" SelectionChanged="ShowContact" Background="AliceBlue">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.5*"></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <ListBox x:Name="phoneListBox" Grid.Column="0" SelectionChanged="ShowContact" Background="AliceBlue" Grid.RowSpan="2">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
@@ -81,26 +107,14 @@
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
-            <Grid Grid.Column="1" Background="{StaticResource TileBrush}">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="0.5*"></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="0.5*"></ColumnDefinition>
-                    <ColumnDefinition></ColumnDefinition>
-                </Grid.ColumnDefinitions>
+            <Image x:Name="imageBottom" Grid.Row="0" Grid.Column="1"/>
+            <TextBlock x:Name="infoBottom" Grid.Row="0" Grid.Column="2" VerticalAlignment="Center"></TextBlock>
 
-                <Image x:Name="imageBottom" Grid.Row="0" Grid.Column="0"/>
-                <TextBlock x:Name="infoBottom" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center"></TextBlock>
-
-                <StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
-                    <TextBlock x:Name="contactInfoBottom" TextAlignment="Center"></TextBlock>
-                    <TextBlock x:Name="contactNameBottom" ></TextBlock>
-                    <TextBlock x:Name="contactPhoneBottom" ></TextBlock>
-                </StackPanel>
-
-            </Grid>
+            <StackPanel Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2">
+                <TextBlock x:Name="contactInfoBottom" TextAlignment="Center"></TextBlock>
+                <TextBlock x:Name="contactNameBottom" ></TextBlock>
+                <TextBlock x:Name="contactPhoneBottom" ></TextBlock>
+            </StackPanel>
         </Grid>
     </DockPanel>
 </Window>
