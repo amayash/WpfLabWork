@@ -41,6 +41,9 @@
                         <SoundPlayerAction Source="Images/buttonSound.wav"></SoundPlayerAction>
                     </EventTrigger.Actions>
                 </EventTrigger>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Foreground" Value="Red" />
+                </Trigger>
             </Style.Triggers>
         </Style>
 
@@ -55,12 +58,6 @@
                                 VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
                                 Content="{TemplateBinding Content}"/>
             </Border>
-
-            <ControlTemplate.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Foreground" Value="Red" />
-                </Trigger>
-            </ControlTemplate.Triggers>
         </ControlTemplate>
     </Window.Resources>
 
